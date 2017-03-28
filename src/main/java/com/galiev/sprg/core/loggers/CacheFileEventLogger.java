@@ -1,5 +1,8 @@
 package com.galiev.sprg.core.loggers;
 
+import com.galiev.sprg.core.beans.Event;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CacheFileEventLogger extends FileEventLogger {
@@ -7,8 +10,10 @@ public class CacheFileEventLogger extends FileEventLogger {
     private int cashSize;
     private List<Event> cache;
 
-    public CacheFileEventLogger(int cashSize) {
+    public CacheFileEventLogger(String fileName, int cashSize) {
+        super(fileName);
         this.cashSize = cashSize;
+        this.cache = new ArrayList<Event>(cashSize);
     }
 
     private void writeEventsFromCache() {

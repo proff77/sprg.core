@@ -1,10 +1,13 @@
-package com.galiev.sprg.core.loggers;
+package com.galiev.sprg.core.beans;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Event {
+
+    private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
+
     private  int id;
     private String msg;
     private Date date;
@@ -19,12 +22,10 @@ public class Event {
                 '}';
     }
 
-    Random random = new Random(10000);
-
     public Event(Date date, DateFormat df) {
         this.date = date;
         this.df = df;
-        this.id = random.nextInt();
+        this.id = AUTO_ID.getAndIncrement();
     }
 
     public String getMsg() {

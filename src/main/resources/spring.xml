@@ -3,33 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="loggers.xml"/>
+
     <bean id="client" class="com.galiev.sprg.core.beans.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="HUhj Uijhj"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
-
-    <bean id="eventLogger" class="com.galiev.sprg.core.loggers.ConsoleEventLogger"/>
 
     <bean id="app" class="com.galiev.sprg.core.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="eventLogger"/>
     </bean>
 
-    <bean id="event" class="com.galiev.sprg.core.loggers.Event" scope="prototype">
+    <bean id="event" class="com.galiev.sprg.core.beans.Event" scope="prototype">
         <constructor-arg>
-            <bean id="date" class="java.util.Date"/>
+            <bean class="java.util.Date"/>
         </constructor-arg>
-        <constructor-arg>
-            <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
-        </constructor-arg>
+        <constructor-arg ref="dateFormat"/>
     </bean>
 
-    <bean id="fileEventLogger" class="com.galiev.sprg.core.loggers.FileEventLogger" init-method="init">
-        <constructor-arg value="D:\Projects\core\src\log.txt"/>
-    </bean>
-
-    <bean id="cacheFileEventLogger" class="com.galiev.sprg.core.loggers.CacheFileEventLogger" destroy-method="destroy">
-        <constructor-arg value="11"/>
-    </bean>
+    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 
 </beans>
