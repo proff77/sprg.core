@@ -2,10 +2,12 @@ package com.galiev.sprg.core.loggers;
 
 import com.galiev.sprg.core.beans.Event;
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
 
+@Component
 public class FileEventLogger implements EventLogger {
 
     private String fileName;

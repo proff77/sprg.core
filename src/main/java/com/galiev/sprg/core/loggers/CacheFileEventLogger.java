@@ -1,10 +1,12 @@
 package com.galiev.sprg.core.loggers;
 
 import com.galiev.sprg.core.beans.Event;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CacheFileEventLogger extends FileEventLogger {
 
     private int cashSize;

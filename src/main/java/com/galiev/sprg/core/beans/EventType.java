@@ -1,4 +1,4 @@
-package com.galiev.sprg.core.loggers;
+package com.galiev.sprg.core.beans;
 
 
 public enum EventType {
