@@ -4,18 +4,27 @@ import com.galiev.sprg.core.beans.Client;
 import com.galiev.sprg.core.beans.Event;
 import com.galiev.sprg.core.loggers.EventLogger;
 import com.galiev.sprg.core.beans.EventType;
+import com.galiev.sprg.core.spring.AppConfig;
+import com.galiev.sprg.core.spring.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
+@Service
 public class App {
 
     @Autowired
     private Client client;
+    @Resource(name = "defaultLogger")
     private EventLogger defaultLogger;
+    @Resource(name = "loggerMap")
     private Map<EventType, EventLogger> loggers;
+
+    public App() {
+    }
 
     public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
         super();
@@ -26,8 +35,15 @@ public class App {
 
     public static void main(String[] args) {
 
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(AppConfig.class, LoggerConfig.class);
+        ctx.scan("com.galiev.sprg.core");
+        ctx.refresh();
+
         App app = (App) ctx.getBean("app");
+
+        Client client = ctx.getBean(Client.class);
+        System.out.println("Client says: " + client.getGreeting());
 
         Event event = ctx.getBean(Event.class);
         app.logEvent(EventType.ERROR,event, "Some event for 1");
