@@ -46,8 +46,12 @@ public class Event {
     }
 
     private static boolean isDay() {
-
-        if (new Calendar().set)
+        boolean isDay = false;
+        Calendar calendar = Calendar.getInstance();
+        int time = calendar.get(Calendar.HOUR);
+        if (time >= 8 && time < 17)
+            isDay = true;
+        return isDay;
     }
 
     public String getMsg() {
