@@ -45,10 +45,10 @@ public class Event {
         this.dateFormat = dateFormat;
     }
 
-    private static boolean isDay() {
+    public static boolean isDay() {
         boolean isDay = false;
         Calendar calendar = Calendar.getInstance();
-        int time = calendar.get(Calendar.HOUR);
+        int time = calendar.get(Calendar.HOUR_OF_DAY);
         if (time >= 8 && time < 17)
             isDay = true;
         return isDay;

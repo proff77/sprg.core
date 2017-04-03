@@ -26,6 +26,9 @@ public class App {
     @Resource(name = "loggerMap")
     private Map<EventType, EventLogger> loggers;
 
+    @Value("#{ systemEnvironment['USERNAME'] }")
+    private String startupMessage;
+
     public App() {
     }
 
@@ -44,6 +47,8 @@ public class App {
         ctx.refresh();
 
         App app = (App) ctx.getBean("app");
+
+        System.out.println(app.startupMessage);
 
         Client client = ctx.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());
